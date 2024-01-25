@@ -1,0 +1,7 @@
+.venv/
+*__pycache__
+credential.json
+wkhtmltopdf.exe
+.env
+.streamlit/
+*.ipynb

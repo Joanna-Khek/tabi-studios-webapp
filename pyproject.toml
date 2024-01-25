@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "tabistudios-webapp"
+version = "0.1.0"
+description = ""
+authors = ["Joanna Khek <joannakhek@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.9.7 || >3.9.7"
+streamlit = "1.28"
+python-dotenv = "^1.0.0"
+pdfkit = "^1.0.0"
+google-api-python-client = "^2.104.0"
+google-auth-httplib2 = "^0.1.1"
+google-auth-oauthlib = "^1.1.0"
+oauth2client = "^4.1.3"
+sqlalchemy = "^2.0.22"
+psycopg2-binary = "^2.9.9"
+streamlit-extras = "^0.3.5"
+seaborn = "^0.13.0"
+matplotlib = "^3.8.2"
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.25.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
