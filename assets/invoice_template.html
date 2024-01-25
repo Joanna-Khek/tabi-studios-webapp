@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Tabi Studios Quotation</title>
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+		<style>
+
+			.invoice-box {
+				max-width: 100%;
+				margin: auto;
+				padding: 40px;
+				font-size: 15px;
+				line-height: 24px;
+				font-family: 'Roboto', sans-serif;
+				color: #555;
+			}
+
+			.invoice-box table {
+				width: 100%;
+				line-height: inherit;
+				text-align: left;
+			}
+
+			.invoice-box table td {
+				padding: 5px;
+				vertical-align: top;
+			}
+
+			.invoice-box table tr td:nth-child(2) {
+				text-align: right;
+			}
+
+			.invoice-box table tr.top table td {
+				padding-bottom: 20px;
+			}
+
+			.invoice-box table tr.top table td.title {
+				font-size: 45px;
+				line-height: 45px;
+				color: #333;
+			}
+
+			.invoice-box table tr.information table td {
+				padding-bottom: 40px;
+			}
+
+			.invoice-box table tr.heading table td {
+				background: #eee;
+				border-bottom: 1px solid #ddd;
+				font-weight: bold;
+			}
+
+			.invoice-box table tr.details td {
+				padding-bottom: 20px;
+			}
+
+			.invoice-box table tr.item table td {
+				border-bottom: 1px solid #eee;
+			}
+
+			.invoice-box table tr.item.last td {
+				border-bottom: none;
+			}
+
+			.invoice-box table tr.total td:nth-child(2) {
+				border-top: 2px solid #eee;
+				font-weight: bold;
+			}
+
+			@media only screen and (max-width: 100%) {
+				.invoice-box table tr.top table td {
+					width: 100%;
+					display: block;
+					text-align: center;
+				}
+
+				.invoice-box table tr.information table td {
+					width: 100%;
+					display: block;
+					text-align: center;
+				}
+			}
+
+			/** RTL **/
+			.invoice-box.rtl {
+				direction: rtl;
+				font-family: 'Roboto', sans-serif;
+			}
+
+			.invoice-box.rtl table {
+				text-align: right;
+			}
+
+			.invoice-box.rtl table tr td:nth-child(2) {
+				text-align: left;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="invoice-box">
+			<table cellpadding="0" cellspacing="0">
+				<tr class="top">
+					<td colspan="2">
+						<table>
+							<tr>
+								<td style="width: 200x" class="title">
+									<img
+									src="https://raw.githubusercontent.com/Joanna-Khek/tabi-studios-webapp/main/logo_black.png"
+										style="width: 80%; max-width: 200px"
+									/>
+								</td>
+
+								<td style="width: 40%">
+									<h1>INVOICE</h1>
+									<p text-align:left># {{REFERENCE_NUM}}</p> <br />
+								</td>
+
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="information">
+					<td colspan="3">
+						<table>
+							<tr>
+								<td style="width: 480px;">
+									Bill To:<br />
+									<b>{{CLIENT_NAME}}</b> <br />
+									{{CONTACT_PERSON}}<br />
+									{{CLIENT_EMAIL}}<br />
+									{{CLIENT_ADDRESS}}
+								</td>
+								
+								<td style="text-align:right">
+									Date:<br />
+									Due Date:<br />
+									Payment Terms:<br />
+								</td>
+
+								<td style="text-align:right">
+									{{DATE_TODAY}}<br />
+									{{DUE_DATE}}<br />
+									{{PAYMENT_TERM}}<br />
+								</td>
+							</tr>
+
+						</table>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td colspan="4">
+						<table>
+							<tr>
+								<td style="text-align:left; width:60%; background: #E5E3E3; font-weight: bold;">Item</td>
+								<td style="text-align:center; width:10%; background: #E5E3E3; font-weight: bold;">Qty</td>
+								<td style="text-align:right; width:15%; background: #E5E3E3; font-weight: bold;">Rate</td>
+								<td style="text-align:right; width:15%; background: #E5E3E3; font-weight: bold;">Amount</td>
+							</tr>
+
+							{% for index, row in ITEMS.iterrows() %}
+							<tr class="item">
+
+								<td>{{row["Item"]}}</td>
+								<td style="text-align:center">{{row["Quantity"]}}</td>
+								<td style="text-align:right">${{row["Rate"]}}</td>
+								<td style="text-align:right">${{row["Amount"]}}</td>
+							</tr>
+							{% endfor %}
+
+							{% for index, row in HALF_PAYMENT_ITEMS.iterrows() %}
+							<tr class="item">
+
+								<td>{{row["Item"]}}</td>
+								<td style="text-align:center">{{row["Quantity"]}}</td>
+								<td style="text-align:right">{{row["Rate"]}}</td>
+								<td style="text-align:right">{{row["Amount"]}}</td>
+							</tr>
+							{% endfor %}
+					
+						</table>
+					</td>
+					
+				</tr>
+
+
+				<tr class="information">
+					<td colspan="3">
+						<table>
+							<br>
+							<br>
+							<tr>
+								<td style="width:480px;">
+								</td>
+								
+								<td style="text-align:right;">
+									Subtotal:<br />
+									Tax (0%):<br />
+									Total:<br />
+									<br>
+									Balance Due:
+								</td>
+
+								<td style="text-align:right">
+									${{TOTAL_PRICE}}<br />
+									$0.00<br />
+									${{TOTAL_PRICE}}<br />
+									<br>
+									<b style="font-size: 20px;">SGD${{ADJUSTED_TOTAL_PRICE}}</b>
+								</td>
+							</tr>
+
+						</table>
+					</td>
+				</tr>
+			
+
+			<tr >
+				<td colspan="2", style="padding-bottom: 20px; font-size: 11px;">
+					<p style="color: #8C8B8B; line-height: 7px;">Notes: </p>
+					<p style="line-height: 7px;">Payment via bank transfer to be made to: DBS Savings </p>
+					<p style="line-height: 7px;">Payment via PayNow to be made to: </p>
+				</td>
+			</tr>
+
+			<tr >
+				<td colspan="2", style="font-size: 11px;">
+					<p style="color: #8C8B8B; line-height: 7px;">Terms and Condition:</p>
+					<p style="line-height: 7px;">In the event of delayed payment, a 5% late fee per month will be applied to the total amount due.</p>
+				</td>
+			</tr>
+
+		</table>
+
+
+				
+
+		</div>
+	</body>
+</html>
